@@ -16,12 +16,11 @@ namespace SecurityValuation.Controllers
     {
 
         [HttpGet]
-        public decimal PriceCalculator(string isin, DateTime valuationDate)
+        public double PriceCalculator(string isin, DateTime valuationDate)
         {
    
             var bond = GetBondFromFile(isin);
 
-            //calculate price based on bond elements
             double nominalPrice = 100;
             var interestRate = 0.03; //3%
 
@@ -34,7 +33,7 @@ namespace SecurityValuation.Controllers
             for(var i = bond.FirstPaymentDate.Year; i <= bond.MaturityDate.Year; i++)
             {
                 if (i == bond.MaturityDate.Year)
-                 cashFlow = cashFlow + nominalPrice;
+                    cashFlow = cashFlow + nominalPrice;
 
                 var amount = cashFlow / Math.Pow(1 + interestRate, yearsElapsed);                                   
 
@@ -43,7 +42,7 @@ namespace SecurityValuation.Controllers
             }
 
 
-            return decimal.Round(disCashflowSum, 2, MidpointRounding.AwayFromZero);
+            return Convert.ToDouble(disCashflowSum);
         }
 
 
@@ -53,7 +52,7 @@ namespace SecurityValuation.Controllers
 
 
             if (!string.IsNullOrEmpty(isin))
-                bondLine = System.IO.File.ReadAllLines(@"..\SecurityValuation\Files\BondData.txt").FirstOrDefault(x => x.Contains(isin));
+                bondLine = System.IO.File.ReadAllLines(@"D:\Repos\SecurityValuation\SecurityValuation\Files\BondData.txt").FirstOrDefault(x => x.Contains(isin));
 
             BondDTO bond = new BondDTO();
 
