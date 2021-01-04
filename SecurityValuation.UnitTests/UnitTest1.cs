@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SecurityValuation.Controllers;
+using SecurityValuation.Services;
 using System;
 
 namespace SecurityValuation.UnitTests
@@ -11,14 +11,15 @@ namespace SecurityValuation.UnitTests
         public void TestMethod1()
         {
             //arrange
-            var valuationController = new ValuationController();
+            var valuationService = new ValuationService();
 
             //act
-            var result = valuationController.PriceCalculator("XS1849479602", new DateTime(2020,11,28));
+            var result = valuationService.PriceCalculator("XS1849479602", new DateTime(2020,11,28));
 
             //assert
             Assert.AreEqual(126.2256, result, 0.001);
             
         }
+
     }
 }
