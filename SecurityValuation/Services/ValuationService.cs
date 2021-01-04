@@ -10,7 +10,7 @@ namespace SecurityValuation.Services
 {
     public class ValuationService
     {
-        public double PriceCalculator41(string isin, DateTime valuationDate)
+        public double PriceCalculator(string isin, DateTime valuationDate)
         {
             var bond = GetBondFromFile(isin);
 
